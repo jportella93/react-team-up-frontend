@@ -1,7 +1,8 @@
 .ball{
   position: fixed;
-  background-color: black;
+  background-color: rgb(255,255,255);
   height: 1.15vh;
   width: 1.15vh;
-  border-radius: 50%
+  border: 1px solid black;
+  border-radius: 50%;
 }
