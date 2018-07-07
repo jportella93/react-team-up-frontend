@@ -18,9 +18,9 @@ class PongContainer extends Component {
         y: 500
       },
 
-      bluePong:0,
+      bluePong:500,
 
-      redPong:0,
+      redPong:500,
 
       windowSize: {
         x: 0,
@@ -79,6 +79,16 @@ handleDownB = (e) => {
 //Ball Functions
 
 
+moveBall = () => {
+  setInterval(() => {
+    let ball = {...this.state.ball}
+    ball.x -= 5
+    ball.y -= 5
+    this.setState({ball})
+  }, 1000)
+}
+
+
 
   componentWillMount () {
     let height = window.innerHeight;
@@ -87,7 +97,7 @@ handleDownB = (e) => {
   }
 
   componentDidMount() {
-    // this.playGame()
+    this.moveBall()
   }
 
 
@@ -120,8 +130,8 @@ handleDownB = (e) => {
 
         <Ball
           position={{
-            x:  500,
-            y: 500
+            x:  this.state.ball.x,
+            y: this.state.ball.y
           }}
 
         />
