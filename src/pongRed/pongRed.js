@@ -4,14 +4,7 @@ import './pongRed.css'
 class PongRed extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-        y:0,
-    }
   }
-
-
-
-
 
   render() {
     return (
