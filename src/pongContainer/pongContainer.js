@@ -171,10 +171,10 @@ handleDownB = (e) => {
          score.blue -= 1
          this.setState({ball, ballvector, score})
        } else {
-         score.blue = 3; score.red = 3;
          this.setState({ball, ballvector, score})
          this.props.socket.emit('endGame', 'red')
          this.props.endGame()
+         score.blue = 3; score.red = 3;
 
        }
      }

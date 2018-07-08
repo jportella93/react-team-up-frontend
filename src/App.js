@@ -23,7 +23,7 @@ class App extends Component {
     this.setState({gamePlay: false, pending: false})
   })
 
-  new Audio('harder.mp3').play()
+
   }
 
   endGame = () => {
@@ -34,6 +34,9 @@ class App extends Component {
   }
 
 
+  componentDidMount() {
+    new Audio('harder.mp3').play()
+  }
 
 
   render() {
