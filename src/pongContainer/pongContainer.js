@@ -20,12 +20,12 @@ class PongContainer extends Component {
         y: 500
       },
       ballvector: {
-        x: 1,
-        y: 2
+        x: 2,
+        y: 2,
       },
       score: {
-        blue: 3,
-        red: 3
+        blue: 4,
+        red: 4
       },
       windowSize: {
         x: 0,
@@ -93,7 +93,8 @@ handleDownB = (e) => {
 
   moveBall = () => {
 
-    setInterval(() => {
+    let rate = 100
+    setInterval((rate) => {
 
      let ball = {...this.state.ball}
      let ballvector = {...this.state.ballvector}
@@ -113,11 +114,6 @@ handleDownB = (e) => {
        x: windowSize.x * 0.002 + 10
      }
 
-     //error margin based on window size calculation:
-     let marginx = 1 / windowSize.x
-     let marginx_high = 1 + marginx
-     let marginx_low = 1 - marginx
-
      //ball margins --- we need to take into account the radius of the ball
      let bally_high = ball.y * 1.0115
      let bally_low = ball.y * (1 -0.0115)
@@ -127,21 +123,22 @@ handleDownB = (e) => {
 
      //y-coordinate calculations
      if (bally_low <= 1 && ballvector.y > 0)  {
-       ballvector.y = ballvector.y * -1
+       ballvector.y = (ballvector.y * -1.1)
      }
      if (bally_high >= windowSize.y + 1  && ballvector.y < 0)  {
-       ballvector.y = ballvector.y * -1
+       ballvector.y = (ballvector.y * -1.1)
      }
      ball.y = ball.y - ballvector.y;
 
      //x-coordinate calculations
-
-     if ((redPongWidth.high < ball.y && ball.y < redPongWidth.low) && ((redPongWidth.x * 0.98) <  ball.x && ball.x < (redPongWidth.x * 1.02)) ) {
-       ballvector.x = ballvector.x * -1
+     if (((redPongWidth.high * 0.96) < ball.y && ball.y < (redPongWidth.low * 1.04)) && ((redPongWidth.x * 0.2) <  ball.x && ball.x < (redPongWidth.x * 1.2)) ) {
+       ballvector.x = (ballvector.x * -1.1)
+       console.log(rate)
      }
 
-     if ((bluePongWidth.high < ball.y && ball.y < bluePongWidth.low) && ((bluePongWidth.x * 0.995) <  ball.x && ball.x < (bluePongWidth.x * 1.005)) ) {
-       ballvector.x = ballvector.x * -1
+     if (((bluePongWidth.high * 0.96) < ball.y && ball.y < (bluePongWidth.low * 1.04)) && ((bluePongWidth.x * 0.992) <  ball.x && ball.x < (bluePongWidth.x * 1.008)) ) {
+       ballvector.x = (ballvector.x * -1.1 )
+       console.log(rate)
      }
      ball.x += ballvector.x
 
@@ -149,6 +146,8 @@ handleDownB = (e) => {
        let score = {...this.state.score}
        ball.x = windowSize.x / 2
        ball.y = windowSize.y / 2
+       ballvector.x = 2
+       ballvector.y = 2
        if (score.red > 1) {
          score.red -= 1
          this.setState({ball, ballvector, score})
@@ -164,6 +163,9 @@ handleDownB = (e) => {
        let score = {...this.state.score}
        ball.x = windowSize.x / 2
        ball.y = windowSize.y / 2
+       ballvector.x = 2
+       ballvector.y = 2
+
        if (score.blue > 1) {
          score.blue -= 1
          this.setState({ball, ballvector, score})
@@ -176,18 +178,9 @@ handleDownB = (e) => {
        }
      }
 
-     console.log('BALL:          ', {
-       'ballvector': ballvector,
-       'ball': ball,
-     })
-
-     console.log ('PONGS:              ',{
-       'redPongWidth': redPongWidth,
-       'bluePongWidth': bluePongWidth,
-     })
 
      this.setState({ball, ballvector})
-   }, 1000/100)
+   }, 1000/rate)
  }
 
 
@@ -208,12 +201,16 @@ handleDownB = (e) => {
     this.moveBall()
   }
 
+  componentWillUnmount() {
+    this.props.socket.emit('screenBye')
+  }
+
 
   render() {
     return (
       <div className='pong-container'>
 
-
+{/*
         <div className='button-red'>
           <button className='redPongUp' onClick={(e) => {this.handleUpR(e)}}>Up</button>
           <button className='redPongDown' onClick={(e) => {this.handleDownR(e)}}>Down</button>
@@ -221,7 +218,7 @@ handleDownB = (e) => {
         <div className='button-blue'>
           <button className='bluePongUp' onClick={(e) => {this.handleUpB(e)}}>Up</button>
           <button className='bluePongDown' onClick={(e) => {this.handleDownB(e)}}>Down</button>
-        </div>
+        </div> */}
 
 
         <div className='scoreRed'>
