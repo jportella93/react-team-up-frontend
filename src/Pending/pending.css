@@ -1,7 +1,6 @@
 @keyframes pending {
-
-    0% {color: rgb(0, 204, 255);}
-    20% {opacity: 1;}
+    10% {color: rgb(0, 204, 255);}
+    20% {opacity: 0.8;}
     30% {color: rgb(255, 102, 0);}
     50% {opacity: .7;}
     80% {color: rgb(0, 204, 255);}
@@ -9,12 +8,12 @@
 }
 
 
-.saving {
+.pend {
   position: fixed;
   top: 80%;
   left: 50%;
 }
-.saving span {
+.pend span {
     animation-name: pending;
     animation-duration: 5s;
     animation-iteration-count: infinite;
@@ -22,56 +21,56 @@
     color: white;
 }
 
-.saving span:nth-child(2) {
+.pend span:nth-child(2) {
     animation-delay: .2s;
 }
 
-.saving span:nth-child(3) {
+.pend span:nth-child(3) {
     animation-delay: .4s;
 }
-.saving span:nth-child(4) {
+.pend span:nth-child(4) {
     animation-delay: .20s;
 }
-.saving span:nth-child(5) {
+.pend span:nth-child(5) {
     animation-delay: .8s;
 }
-.saving span:nth-child(6) {
+.pend span:nth-child(6) {
     animation-delay: .2s;
 }
-.saving span:nth-child(7) {
+.pend span:nth-child(7) {
     animation-delay: .18s;
 }
-.saving span:nth-child(8) {
+.pend span:nth-child(8) {
     animation-delay: .12s;
 }
-.saving span:nth-child(9) {
+.pend span:nth-child(9) {
     animation-delay: .26s;
 }
-.saving span:nth-child(10) {
+.pend span:nth-child(10) {
     animation-delay: .4s;
 }
-.saving span:nth-child(11) {
+.pend span:nth-child(11) {
     animation-delay: .22s;
 }
-.saving span:nth-child(12) {
+.pend span:nth-child(12) {
     animation-delay: .8s;
 }
-.saving span:nth-child(13) {
+.pend span:nth-child(13) {
     animation-delay: .24s;
 }
-.saving span:nth-child(14) {
+.pend span:nth-child(14) {
     animation-delay: .20s;
 }
-.saving span:nth-child(15) {
+.pend span:nth-child(15) {
     animation-delay: .4s;
 }
-.saving span:nth-child(16) {
+.pend span:nth-child(16) {
     animation-delay: .24s;
 }
-.saving span:nth-child(17) {
+.pend span:nth-child(17) {
     animation-delay: .16s;
 }
-.saving span:nth-child(18) {
+.pend span:nth-child(18) {
     animation-delay: .40s;
 }
 

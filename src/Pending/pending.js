@@ -9,7 +9,7 @@ class Pending extends Component {
     return (
       <div>
         <div className='pending'>
-          <p className='saving'>
+          <p className='pend'>
             <span>1</span>
             <span>9</span>
             <span>2</span>
