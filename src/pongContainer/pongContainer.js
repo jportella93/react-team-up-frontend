@@ -11,7 +11,7 @@ const socket = openSocket.connect('192.168.1.187:2000');
 class PongContainer extends Component {
   constructor(props) {
     super(props);
-    this.gamePlay()
+    // this.gamePlay()
     this.state = {
 
       bluePong:500,
@@ -115,28 +115,37 @@ handleDownB = (e) => {
        x: windowSize.x * 0.002 + 10
      }
 
+     //error margin based on window size calculation:
+     let marginx = 1 / windowSize.x
+     let marginx_high = 1 + marginx
+     let marginx_low = 1 - marginx
 
-     // console.log('ball.x: ', ball.x, 'ballvector.x: ', ballvector.x)
+     //ball margins --- we need to take into account the radius of the ball
+     let bally_high = ball.y * 1.0115
+     let bally_low = ball.y * (1 -0.0115)
+     let ballx_high = ball.x * 1.0115
+     let ballx_low = ball.x * (1 -0.0115)
+
 
      //y-coordinate calculations
-     if (ball.y <= 15 && ballvector.y > 0)  {
+     if (bally_low <= 1 && ballvector.y > 0)  {
        ballvector.y = ballvector.y * -1
      }
-     if (ball.y >= windowSize.y  && ballvector.y < 0)  {
+     if (bally_high >= windowSize.y + 1  && ballvector.y < 0)  {
        ballvector.y = ballvector.y * -1
      }
      ball.y = ball.y - ballvector.y;
 
      //x-coordinate calculations
 
-     if ((redPongWidth.high < ball.y && ball.y < redPongWidth.low) && (redPongWidth.x * 0.9 <  ball.x && ball.x < redPongWidth.x * 1.1) ) {
+     if ((redPongWidth.high < ball.y && ball.y < redPongWidth.low) && ((redPongWidth.x * 0.98) <  ball.x && ball.x < (redPongWidth.x * 1.02)) ) {
        ballvector.x = ballvector.x * -1
      }
 
-     if ((bluePongWidth.high < ball.y && ball.y < bluePongWidth.low) && (bluePongWidth.x * 0.99 <  ball.x && ball.x < bluePongWidth.x * 1.01) ) {
+     if ((bluePongWidth.high < ball.y && ball.y < bluePongWidth.low) && ((bluePongWidth.x * 0.995) <  ball.x && ball.x < (bluePongWidth.x * 1.005)) ) {
        ballvector.x = ballvector.x * -1
      }
-     ball.x -= ballvector.x
+     ball.x += ballvector.x
 
      if (ball.x < 0) {
        let score = {...this.state.score}
@@ -148,7 +157,7 @@ handleDownB = (e) => {
        } else {
          score.blue = 3; score.red = 3;
          this.setState({ball, ballvector, score})
-         this.props.socket.emit('endGame', 'red')
+         this.props.socket.emit('endGame', 'blue')
          this.props.endGame()
        }
      }
@@ -169,8 +178,18 @@ handleDownB = (e) => {
        }
      }
 
+     console.log('BALL:          ', {
+       'ballvector': ballvector,
+       'ball': ball,
+     })
+
+     console.log ('PONGS:              ',{
+       'redPongWidth': redPongWidth,
+       'bluePongWidth': bluePongWidth,
+     })
+
      this.setState({ball, ballvector})
-   }, 1000/200)
+   }, 1000/100)
  }
 
 

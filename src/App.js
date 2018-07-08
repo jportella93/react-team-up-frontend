@@ -31,18 +31,18 @@ class App extends Component {
   componentDidMount() {
     this.endGame()
   }
-  
+
   render() {
 
     return (
       <div className="App">
 
-        {this.state.pending
+        {/* {this.state.pending
           ? <Waiting/>
-          : this.state.gamePlay
-            ? <PongContainer socket={socket} endGame={this.endGame}  />
-            : <Pending/>
-        }
+          : this.state.gamePlay ? */}
+             <PongContainer socket={socket} endGame={this.endGame}  />
+        {/* //     : <Pending/>
+         } */}
 
       </div>
     );
