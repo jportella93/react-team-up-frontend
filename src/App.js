@@ -1,18 +1,49 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PongContainer from './pongContainer'
+import openSocket from 'socket.io-client'
+import Pending from './Pending'
+import Waiting from './waiting'
+
+const socket = openSocket.connect('192.168.1.187:2000');
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    socket.on('startGame', () => {
+      this.setState({gamePlay: true})
+    })
+    this.state = {
+      gamePlay: false,
+      pending: true,
+    }
+  }
+
+  endGame = () => {
+    this.setState({gamePlay: false, pending: true})
+    setTimeout(() => {
+      this.setState({pending: false})
+    }, 5000)
+  }
+
+
+  componentDidMount() {
+    this.endGame()
+  }
+  
   render() {
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+        {this.state.pending
+          ? <Waiting/>
+          : this.state.gamePlay
+            ? <PongContainer socket={socket} endGame={this.endGame}  />
+            : <Pending/>
+        }
+
       </div>
     );
   }

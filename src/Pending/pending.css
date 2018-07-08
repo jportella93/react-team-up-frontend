@@ -1,0 +1,64 @@
+@keyframes blink {
+    0% {opacity: .2;}
+    20% {opacity: 1}
+    20% {color: rgb(66, 219, 0)}
+
+    100% {opacity: .2;}
+}
+
+
+.saving {
+  position: fixed;
+  top: 80%;
+  left: 50%;
+}
+.saving span {
+    animation-name: blink;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    color: white;
+}
+
+.saving span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.saving span:nth-child(3) {
+    animation-delay: .4s;
+}
+.saving span:nth-child(4) {
+    animation-delay: .6s;
+}
+.saving span:nth-child(5) {
+    animation-delay: .8s;
+}
+.saving span:nth-child(6) {
+    animation-delay: .10s;
+}
+.saving span:nth-child(7) {
+    animation-delay: .12s;
+}
+.saving span:nth-child(8) {
+    animation-delay: .14s;
+}
+.saving span:nth-child(9) {
+    animation-delay: .16s;
+}
+.saving span:nth-child(10) {
+    animation-delay: .18s;
+}
+.saving span:nth-child(11) {
+    animation-delay: .20s;
+}
+.saving span:nth-child(12) {
+    animation-delay: .22s;
+}
+
+.pending {
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

@@ -1,0 +1,13 @@
+.pongBlue {
+  position: fixed;
+  right: 0;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 0.2vw;
+  height: 11vh;
+  background-color: rgba(0, 204, 255, 0.85);
+  border: 2px solid;
+  /* border-color: rgb(14, 163, 190); */
+  border-color: black;
+}

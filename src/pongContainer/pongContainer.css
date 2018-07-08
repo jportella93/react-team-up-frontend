@@ -1,0 +1,100 @@
+@font-face {
+  font-family: 'Vectorb';
+  src: url('../assets/Vectorb.ttf') format('truetype');
+  font-weight: bold;
+}
+
+
+.pong-container{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  /* background-color: rgba(10, 10, 10, 0.95) */
+}
+
+.button-blue {
+  position: fixed;
+  top: 100px;
+  right: 100px;
+}
+
+.button-red {
+  position: fixed;
+  top: 100px;
+  left: 100px;
+
+}
+
+.redPongUp:active {
+background-color: rgba(255, 102, 0, 0.3);
+}
+
+.redPongUp {
+  background-color: transparent;
+  color: rgb(255, 102, 0);
+  border: solid 2px rgb(255, 102, 0);
+  margin: 2px;
+  outline: none;
+}
+.bluePongUp:active {
+background-color: rgba(0, 204, 255, 0.3);
+}
+.bluePongUp {
+  background-color: transparent;
+  color: rgb(0, 204, 255);
+  border: solid 2px rgb(0, 204, 255);
+  margin: 2px;
+  outline: none;
+}
+.redPongDown:active {
+background-color: rgba(255, 102, 0, 0.3);
+}
+.redPongDown {
+  background-color: transparent;
+  color: rgb(255, 102, 0);
+  border: solid 2px rgb(255, 102, 0);
+  margin: 2px;
+  outline: none;
+}
+
+.bluePongDown:active {
+background-color: rgba(0, 204, 255, 0.3);
+}
+
+.bluePongDown {
+  background-color: transparent;
+  color: rgb(0, 204, 255);
+  border: solid 2px rgb(0, 204, 255);
+  margin: 2px;
+  outline: none;
+}
+
+.center-line {
+  border: 2px dashed;
+  border-color: rgba(211,211,211,0.05);
+  height: 80vh;
+  background-color: transparent;
+  align-self: center;
+  position: fixed;
+  left: 50%;
+
+}
+
+.scoreBlue {
+  color: rgb(0, 204, 255);
+  position: fixed;
+  top: 8%;
+  right: 42%;
+}
+
+.scoreRed {
+  color: rgb(255, 102, 0);
+  position: fixed;
+  top: 8%;
+  left: 42%;
+}
+
+p {
+  font-size: 60px;
+  font-family: Vectorb;
+}
