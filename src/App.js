@@ -4,6 +4,7 @@ import './App.css';
 import PongContainer from './pongContainer'
 import openSocket from 'socket.io-client'
 import Pending from './Pending'
+import Waiting from './waiting'
 
 const socket = openSocket.connect('192.168.1.187:2000');
 
@@ -15,17 +16,32 @@ class App extends Component {
     })
     this.state = {
       gamePlay: false,
-      onePlayer: false,
+      pending: true,
     }
   }
 
+  endGame = () => {
+    this.setState({gamePlay: false, pending: true})
+    setTimeout(() => {
+      this.setState({pending: false})
+    }, 5000)
+  }
+
+
+  componentDidMount() {
+    this.endGame()
+  }
+  
   render() {
 
     return (
       <div className="App">
-        {this.state.gamePlay
-          ? <PongContainer socket={socket}  />
-          :  <Pending/>
+
+        {this.state.pending
+          ? <Waiting/>
+          : this.state.gamePlay
+            ? <PongContainer socket={socket} endGame={this.endGame}  />
+            : <Pending/>
         }
 
       </div>

@@ -1,0 +1,22 @@
+.remain {
+  position: fixed;
+  color: white;
+  top: 40%;
+  font-size: 10vh;
+}
+
+@keyframes blink {
+    0% {opacity: .1; left: 5vh; color: white}
+    20% {opacity: .4; left: 20vh; color: rgb(66, 219, 0)}
+    40% {opacity: .2; left: 40vh; color: white}
+    60% {opacity: .6; left: 60vh; color: rgb(66, 219, 0)}
+    80% {opacity: .3; left: 80vh; color: white}
+    100% {opacity: .7; left: 80vh; color: rgb(66, 219, 0)}
+}
+
+
+.remain {
+    animation-name: blink;
+    animation-duration: 6s;
+    color: white;
+}

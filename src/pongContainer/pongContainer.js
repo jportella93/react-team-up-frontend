@@ -51,42 +51,42 @@ gamePlay = () => {
 
 //Button Functions
 
-//
-// handleUpR = (e) => {
-//     e.preventDefault();
-//     let y = this.state.redPong - 30
-//
-//     if (this.state.redPong > 2) {
-//       this.setState({redPong : y})
-//     }
-//   }
-//
-// handleDownR = (e) => {
-//     e.preventDefault();
-//     let y = this.state.redPong + 30
-//
-//     if ((this.state.redPong < (this.state.windowSize.y * 0.88))) {
-//       this.setState({redPong : y})
-//     }
-//     console.log(this.state.windowSize.y, (this.state.redPong * 1.11))
-//   }
-//
-// handleUpB = (e) => {
-//     e.preventDefault();
-//     let y = this.state.bluePong - 30
-//     if (this.state.bluePong > 2) {
-//       this.setState({bluePong : y})
-//     }
-//
-//   }
-//
-// handleDownB = (e) => {
-//     e.preventDefault();
-//     let y = this.state.bluePong + 30
-//     if ((this.state.bluePong < (this.state.windowSize.y * 0.88))) {
-//       this.setState({bluePong : y})
-//     }
-//   }
+
+handleUpR = (e) => {
+    e.preventDefault();
+    let y = this.state.redPong - 30
+
+    if (this.state.redPong > 2) {
+      this.setState({redPong : y})
+    }
+  }
+
+handleDownR = (e) => {
+    e.preventDefault();
+    let y = this.state.redPong + 30
+
+    if ((this.state.redPong < (this.state.windowSize.y * 0.88))) {
+      this.setState({redPong : y})
+    }
+    console.log(this.state.windowSize.y, (this.state.redPong * 1.11))
+  }
+
+handleUpB = (e) => {
+    e.preventDefault();
+    let y = this.state.bluePong - 30
+    if (this.state.bluePong > 2) {
+      this.setState({bluePong : y})
+    }
+
+  }
+
+handleDownB = (e) => {
+    e.preventDefault();
+    let y = this.state.bluePong + 30
+    if ((this.state.bluePong < (this.state.windowSize.y * 0.88))) {
+      this.setState({bluePong : y})
+    }
+  }
 
 
 
@@ -128,15 +128,6 @@ gamePlay = () => {
      ball.y = ball.y - ballvector.y;
 
      //x-coordinate calculations
-     //
-     // console.log({
-       // 'Ball x-coordinate': ball.x,
-     //   'bluePongWidth.high': bluePongWidth.high,
-     //   'ball.x': ball.x,
-     //   'bluePongWidth.low': bluePongWidth.low,
-     //   'bluePongWidth.x': bluePongWidth.x,
-     //   'ball.y': ball.y
-     // })
 
      if ((redPongWidth.high < ball.y && ball.y < redPongWidth.low) && (redPongWidth.x * 0.9 <  ball.x && ball.x < redPongWidth.x * 1.1) ) {
        ballvector.x = ballvector.x * -1
@@ -158,6 +149,7 @@ gamePlay = () => {
          score.blue = 3; score.red = 3;
          this.setState({ball, ballvector, score})
          this.props.socket.emit('endGame', 'red')
+         this.props.endGame()
        }
      }
 
@@ -172,11 +164,13 @@ gamePlay = () => {
          score.blue = 3; score.red = 3;
          this.setState({ball, ballvector, score})
          this.props.socket.emit('endGame', 'red')
+         this.props.endGame()
+
        }
      }
 
      this.setState({ball, ballvector})
-   }, 1000/80)
+   }, 1000/200)
  }
 
 
