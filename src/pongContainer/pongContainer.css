@@ -4,12 +4,35 @@
   font-weight: bold;
 }
 
+@keyframes blinker {
+    0% {opacity: .5; color: rgb(122, 122, 122)}
+    20% {opacity: .6; color: rgb(191, 191, 191)}
+    40% {opacity: .8; color: rgb(255, 102, 0)}
+    60% {opacity: .6; color: rgb(191, 191, 191)}
+    80% {opacity: .5; color: rgb(122, 122, 122)}
+    100% {opacity: .7; color: rgb(0, 204, 255)}
+}
+
 
 .pong-container{
   height: 100vh;
   width: 100vw;
   display: flex;
   /* background-color: rgba(10, 10, 10, 0.95) */
+}
+
+.ip p {
+  position: fixed;
+  z-index: -1;
+  color: rgb(122, 122, 122);
+  top: 3vh;
+  left: 38.2vw;
+  font-size: 2.1vh;
+  letter-spacing: 10px;
+  animation-name: blinker;
+  animation-fill-mode: both;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
 }
 
 .button-blue {

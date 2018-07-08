@@ -5,6 +5,7 @@ import PongBlue from '../pongBlue'
 import Ball from '../ball'
 import openSocket from 'socket.io-client';
 const socket = openSocket.connect('192.168.1.187:2000');
+const ip = '192.168.1.187:3000'
 
 
 
@@ -226,6 +227,10 @@ handleDownB = (e) => {
         </div>
         <div className='scoreBlue'>
           <p className='score'>{this.state.score.blue}</p>
+        </div>
+
+        <div className='ip'>
+          <p>{ip}</p>
         </div>
 
 

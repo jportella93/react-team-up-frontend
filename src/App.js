@@ -22,6 +22,8 @@ class App extends Component {
   socket.on('gameTimedOut', () => {
     this.setState({gamePlay: false, pending: false})
   })
+
+  new Audio('harder.mp3').play()
   }
 
   endGame = () => {
