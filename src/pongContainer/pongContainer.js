@@ -11,7 +11,7 @@ const socket = openSocket.connect('192.168.1.187:2000');
 class PongContainer extends Component {
   constructor(props) {
     super(props);
-    // this.gamePlay()
+    this.gamePlay()
     this.state = {
 
       bluePong:500,
@@ -52,41 +52,41 @@ gamePlay = () => {
 //Button Functions
 
 //
-handleUpR = (e) => {
-    e.preventDefault();
-    let y = this.state.redPong - 30
-
-    if (this.state.redPong > 2) {
-      this.setState({redPong : y})
-    }
-  }
-
-handleDownR = (e) => {
-    e.preventDefault();
-    let y = this.state.redPong + 30
-
-    if ((this.state.redPong < (this.state.windowSize.y * 0.88))) {
-      this.setState({redPong : y})
-    }
-    console.log(this.state.windowSize.y, (this.state.redPong * 1.11))
-  }
-
-handleUpB = (e) => {
-    e.preventDefault();
-    let y = this.state.bluePong - 30
-    if (this.state.bluePong > 2) {
-      this.setState({bluePong : y})
-    }
-
-  }
-
-handleDownB = (e) => {
-    e.preventDefault();
-    let y = this.state.bluePong + 30
-    if ((this.state.bluePong < (this.state.windowSize.y * 0.88))) {
-      this.setState({bluePong : y})
-    }
-  }
+// handleUpR = (e) => {
+//     e.preventDefault();
+//     let y = this.state.redPong - 30
+//
+//     if (this.state.redPong > 2) {
+//       this.setState({redPong : y})
+//     }
+//   }
+//
+// handleDownR = (e) => {
+//     e.preventDefault();
+//     let y = this.state.redPong + 30
+//
+//     if ((this.state.redPong < (this.state.windowSize.y * 0.88))) {
+//       this.setState({redPong : y})
+//     }
+//     console.log(this.state.windowSize.y, (this.state.redPong * 1.11))
+//   }
+//
+// handleUpB = (e) => {
+//     e.preventDefault();
+//     let y = this.state.bluePong - 30
+//     if (this.state.bluePong > 2) {
+//       this.setState({bluePong : y})
+//     }
+//
+//   }
+//
+// handleDownB = (e) => {
+//     e.preventDefault();
+//     let y = this.state.bluePong + 30
+//     if ((this.state.bluePong < (this.state.windowSize.y * 0.88))) {
+//       this.setState({bluePong : y})
+//     }
+//   }
 
 
 
