@@ -18,6 +18,7 @@ class App extends Component {
       gamePlay: false,
       pending: true,
     }
+    new Audio('harder.mp3').play()
   }
 
   endGame = () => {
