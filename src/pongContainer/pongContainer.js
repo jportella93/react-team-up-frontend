@@ -11,7 +11,6 @@ const socket = openSocket.connect('192.168.1.187:2000');
 class PongContainer extends Component {
   constructor(props) {
     super(props);
-    // this.gamePlay()
     this.state = {
 
       bluePong:500,
@@ -34,20 +33,19 @@ class PongContainer extends Component {
       },
 
     }
+    this.gamePlay()
   }
 
 
 gamePlay = () => {
 
     this.props.socket.on('frame', frame => {
-        this.setState({
-          bluePong: frame.bluePong,
-          redPong: frame.redPong,
-        })
-        console.log('red: ', this.state.redPong, 'blue: ',  this.state.bluePong)
+      this.setState({
+        bluePong: frame.bluePong,
+        redPong: frame.redPong
       })
+    })
 }
-
 
 //Button Functions
 
@@ -198,9 +196,15 @@ handleDownB = (e) => {
     let height = window.innerHeight;
     let width = window.innerWidth;
     this.setState({windowSize: {x: width, y: height}})
-  }
+    }
 
   componentDidMount() {
+    let height = this.state.windowSize.y * .89
+    let windowsize = {
+      'height': height,
+      'width': this.state.windowSize.x
+    }
+    this.props.socket.emit('windowSize', windowsize)
     this.moveBall()
   }
 
