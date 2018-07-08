@@ -1,0 +1,119 @@
+@keyframes pending {
+    10% {color: rgb(0, 204, 255);}
+    20% {opacity: 0.8;}
+    30% {color: rgb(255, 102, 0);}
+    50% {opacity: .7;}
+    80% {color: rgb(0, 204, 255);}
+    100% {opacity: 0.2;}
+}
+
+.videoContainer {
+  position: absolute;
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.3;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 0;
+}
+
+
+.pending-component {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  background: -moz-linear-gradient(-45deg, rgba(0,0,0,0.65) 25%, rgba(0,0,0,0.55) 37%, rgba(0,0,0,0) 100%);
+  background: -webkit-linear-gradient(-45deg, rgba(0,0,0,0.65) 25%,rgba(0,0,0,0.55) 37%,rgba(0,0,0,0) 100%);
+  background: linear-gradient(135deg, rgba(0,0,0,0.65) 25%,rgba(0,0,0,0.55) 37%,rgba(0,0,0,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 );
+  background-color: black;
+}
+
+.opacity {
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.pend {
+  position: fixed;
+  top: 80%;
+  left: 50%;
+}
+.pend span {
+    animation-name: pending;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    color: white;
+}
+
+.pend span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.pend span:nth-child(3) {
+    animation-delay: .4s;
+}
+.pend span:nth-child(4) {
+    animation-delay: .20s;
+}
+.pend span:nth-child(5) {
+    animation-delay: .8s;
+}
+.pend span:nth-child(6) {
+    animation-delay: .2s;
+}
+.pend span:nth-child(7) {
+    animation-delay: .18s;
+}
+.pend span:nth-child(8) {
+    animation-delay: .12s;
+}
+.pend span:nth-child(9) {
+    animation-delay: .26s;
+}
+.pend span:nth-child(10) {
+    animation-delay: .4s;
+}
+.pend span:nth-child(11) {
+    animation-delay: .22s;
+}
+.pend span:nth-child(12) {
+    animation-delay: .8s;
+}
+.pend span:nth-child(13) {
+    animation-delay: .24s;
+}
+.pend span:nth-child(14) {
+    animation-delay: .20s;
+}
+.pend span:nth-child(15) {
+    animation-delay: .4s;
+}
+.pend span:nth-child(16) {
+    animation-delay: .24s;
+}
+.pend span:nth-child(17) {
+    animation-delay: .16s;
+}
+.pend span:nth-child(18) {
+    animation-delay: .40s;
+}
+
+.pending {
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.7);
+}

@@ -1,0 +1,123 @@
+@font-face {
+  font-family: 'Vectorb';
+  src: url('../assets/Vectorb.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@keyframes blinker {
+    0% {opacity: .5; color: rgb(122, 122, 122)}
+    20% {opacity: .6; color: rgb(191, 191, 191)}
+    40% {opacity: .8; color: rgb(255, 102, 0)}
+    60% {opacity: .6; color: rgb(191, 191, 191)}
+    80% {opacity: .5; color: rgb(122, 122, 122)}
+    100% {opacity: .7; color: rgb(0, 204, 255)}
+}
+
+
+.pong-container{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  /* background-color: rgba(10, 10, 10, 0.95) */
+}
+
+.ip p {
+  position: fixed;
+  z-index: -1;
+  color: rgb(122, 122, 122);
+  top: 3vh;
+  left: 38.2vw;
+  font-size: 2.1vh;
+  letter-spacing: 10px;
+  animation-name: blinker;
+  animation-fill-mode: both;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+.button-blue {
+  position: fixed;
+  top: 100px;
+  right: 100px;
+}
+
+.button-red {
+  position: fixed;
+  top: 100px;
+  left: 100px;
+
+}
+
+.redPongUp:active {
+background-color: rgba(255, 102, 0, 0.3);
+}
+
+.redPongUp {
+  background-color: transparent;
+  color: rgb(255, 102, 0);
+  border: solid 2px rgb(255, 102, 0);
+  margin: 2px;
+  outline: none;
+}
+.bluePongUp:active {
+background-color: rgba(0, 204, 255, 0.3);
+}
+.bluePongUp {
+  background-color: transparent;
+  color: rgb(0, 204, 255);
+  border: solid 2px rgb(0, 204, 255);
+  margin: 2px;
+  outline: none;
+}
+.redPongDown:active {
+background-color: rgba(255, 102, 0, 0.3);
+}
+.redPongDown {
+  background-color: transparent;
+  color: rgb(255, 102, 0);
+  border: solid 2px rgb(255, 102, 0);
+  margin: 2px;
+  outline: none;
+}
+
+.bluePongDown:active {
+background-color: rgba(0, 204, 255, 0.3);
+}
+
+.bluePongDown {
+  background-color: transparent;
+  color: rgb(0, 204, 255);
+  border: solid 2px rgb(0, 204, 255);
+  margin: 2px;
+  outline: none;
+}
+
+.center-line {
+  border: 2px dashed;
+  border-color: rgba(211,211,211,0.05);
+  height: 80vh;
+  background-color: transparent;
+  align-self: center;
+  position: fixed;
+  left: 50%;
+
+}
+
+.scoreBlue {
+  color: rgb(0, 204, 255);
+  position: fixed;
+  top: 8%;
+  right: 42%;
+}
+
+.scoreRed {
+  color: rgb(255, 102, 0);
+  position: fixed;
+  top: 8%;
+  left: 42%;
+}
+
+p {
+  font-size: 60px;
+  font-family: Vectorb;
+}
