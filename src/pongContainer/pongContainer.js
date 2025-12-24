@@ -3,11 +3,6 @@ import './pongContainer.css'
 import PongRed from '../pongRed'
 import PongBlue from '../pongBlue'
 import Ball from '../ball'
-import openSocket from 'socket.io-client';
-const socket = openSocket.connect('192.168.1.187:2000');
-const ip = '192.168.1.187:3000'
-
-
 
 class PongContainer extends Component {
   constructor(props) {
@@ -34,25 +29,33 @@ class PongContainer extends Component {
       },
 
     }
-    this.gamePlay()
+    this.intervalId = null;
+    this.frameListener = null;
+    this.onResize = null;
+    this.onKeyDown = null;
   }
 
 
 gamePlay = () => {
+    const { socket } = this.props;
+    if (!socket) return;
 
-    this.props.socket.on('frame', frame => {
+    this.frameListener = frame => {
+      if (!frame) return;
       this.setState({
         bluePong: frame.bluePong,
         redPong: frame.redPong
       })
-    })
+    }
+
+    socket.on('frame', this.frameListener)
 }
 
 //Button Functions
 
 
 handleUpR = (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     let y = this.state.redPong - 30
 
     if (this.state.redPong > 2) {
@@ -61,17 +64,16 @@ handleUpR = (e) => {
   }
 
 handleDownR = (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     let y = this.state.redPong + 30
 
     if ((this.state.redPong < (this.state.windowSize.y * 0.88))) {
       this.setState({redPong : y})
     }
-    console.log(this.state.windowSize.y, (this.state.redPong * 1.11))
   }
 
 handleUpB = (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     let y = this.state.bluePong - 30
     if (this.state.bluePong > 2) {
       this.setState({bluePong : y})
@@ -80,7 +82,7 @@ handleUpB = (e) => {
   }
 
 handleDownB = (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     let y = this.state.bluePong + 30
     if ((this.state.bluePong < (this.state.windowSize.y * 0.88))) {
       this.setState({bluePong : y})
@@ -95,7 +97,8 @@ handleDownB = (e) => {
   moveBall = () => {
 
     let rate = 100
-    setInterval((rate) => {
+    if (this.intervalId) return;
+    this.intervalId = setInterval(() => {
 
      let ball = {...this.state.ball}
      let ballvector = {...this.state.ballvector}
@@ -134,12 +137,10 @@ handleDownB = (e) => {
      //x-coordinate calculations
      if (((redPongWidth.high * 0.96) < ball.y && ball.y < (redPongWidth.low * 1.04)) && ((redPongWidth.x * 0.2) <  ball.x && ball.x < (redPongWidth.x * 1.2)) ) {
        ballvector.x = (ballvector.x * -1.1)
-       console.log(rate)
      }
 
      if (((bluePongWidth.high * 0.96) < ball.y && ball.y < (bluePongWidth.low * 1.04)) && ((bluePongWidth.x * 0.992) <  ball.x && ball.x < (bluePongWidth.x * 1.008)) ) {
        ballvector.x = (ballvector.x * -1.1 )
-       console.log(rate)
      }
      ball.x += ballvector.x
 
@@ -155,7 +156,7 @@ handleDownB = (e) => {
        } else {
          score.blue = 3; score.red = 3;
          this.setState({ball, ballvector, score})
-         this.props.socket.emit('endGame', 'blue')
+         if (this.props.socket) this.props.socket.emit('endGame', 'blue')
          this.props.endGame()
        }
      }
@@ -172,7 +173,7 @@ handleDownB = (e) => {
          this.setState({ball, ballvector, score})
        } else {
          this.setState({ball, ballvector, score})
-         this.props.socket.emit('endGame', 'red')
+         if (this.props.socket) this.props.socket.emit('endGame', 'red')
          this.props.endGame()
          score.blue = 3; score.red = 3;
 
@@ -186,24 +187,56 @@ handleDownB = (e) => {
 
 
 
-  componentWillMount () {
-    let height = window.innerHeight;
-    let width = window.innerWidth;
-    this.setState({windowSize: {x: width, y: height}})
+  componentDidMount() {
+    const updateWindowSize = (cb) => {
+      let height = window.innerHeight;
+      let width = window.innerWidth;
+      this.setState({windowSize: {x: width, y: height}}, cb)
+
+      if (this.props.socket) {
+        const h = height * 0.89
+        this.props.socket.emit('windowSize', { height: h, width })
+      }
     }
 
-  componentDidMount() {
-    let height = this.state.windowSize.y * .89
-    let windowsize = {
-      'height': height,
-      'width': this.state.windowSize.x
+    updateWindowSize(() => this.moveBall())
+    this.onResize = () => updateWindowSize()
+    window.addEventListener('resize', this.onResize)
+
+    if (this.props.socket) {
+      this.gamePlay()
+    } else {
+      this.onKeyDown = e => {
+        if (e.key === 'w' || e.key === 'W') this.handleUpR(e)
+        if (e.key === 's' || e.key === 'S') this.handleDownR(e)
+        if (e.key === 'ArrowUp') this.handleUpB(e)
+        if (e.key === 'ArrowDown') this.handleDownB(e)
+      }
+      window.addEventListener('keydown', this.onKeyDown)
     }
-    this.props.socket.emit('windowSize', windowsize)
-    this.moveBall()
+
   }
 
   componentWillUnmount() {
-    this.props.socket.emit('screenBye')
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+      this.intervalId = null
+    }
+
+    if (this.onResize) {
+      window.removeEventListener('resize', this.onResize)
+      this.onResize = null
+    }
+
+    if (this.onKeyDown) {
+      window.removeEventListener('keydown', this.onKeyDown)
+      this.onKeyDown = null
+    }
+
+    if (this.props.socket) {
+      if (this.frameListener) this.props.socket.off('frame', this.frameListener)
+      this.props.socket.emit('screenBye')
+    }
   }
 
 
@@ -228,12 +261,6 @@ handleDownB = (e) => {
         <div className='scoreBlue'>
           <p className='score'>{this.state.score.blue}</p>
         </div>
-
-        <div className='ip'>
-          <p>{ip}</p>
-        </div>
-
-
 
         <Ball
           position={{

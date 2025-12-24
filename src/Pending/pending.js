@@ -21,31 +21,45 @@ class Pending extends Component {
 
 
   render() {
+    const { offline, socketUrl, onStartOfflineDemo } = this.props;
     return (
       <div className='component'>
         <div className="pending-component">
           {this.state.playVideo ? this.playVideo() : null}
           <div className='pending'>
             <p className='pend'>
-              <span>1</span>
-              <span>9</span>
-              <span>2</span>
-              <span>.</span>
-              <span>1</span>
-              <span>6</span>
-              <span>8</span>
-              <span>.</span>
-              <span>1</span>
-              <span>.</span>
-              <span>1</span>
-              <span>8</span>
-              <span>7</span>
-              <span>:</span>
-              <span>3</span>
-              <span>0</span>
-              <span>0</span>
-              <span>0</span>
+              {offline ? (
+                <>
+                  <span>O</span><span>F</span><span>F</span><span>L</span><span>I</span><span>N</span><span>E</span>
+                </>
+              ) : (
+                <>
+                  {String(socketUrl || '').split('').map((ch, idx) => (
+                    <span key={idx}>{ch}</span>
+                  ))}
+                </>
+              )}
             </p>
+            {offline ? (
+              <div style={{ marginTop: 16 }}>
+                <p style={{ color: 'white', margin: '8px 0' }}>
+                  No backend configured. Set <code>REACT_APP_SOCKET_URL</code> to enable online mode, or start the offline demo.
+                </p>
+                <button
+                  onClick={onStartOfflineDemo}
+                  style={{
+                    padding: '10px 14px',
+                    borderRadius: 8,
+                    border: '1px solid rgba(255,255,255,0.4)',
+                    background: 'rgba(0,0,0,0.35)',
+                    color: 'white',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Start offline demo
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className='opacity'>
