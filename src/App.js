@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import PongContainer from './pongContainer'
-import openSocket from 'socket.io-client'
 import Pending from './Pending'
 import Waiting from './waiting'
 
-const socket = openSocket.connect('192.168.1.187:2000');
+import { createSocket, getSocketUrl } from './socket';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    socket.on('startGame', () => {
-      this.setState({gamePlay: true})
-    })
+    this.socket = createSocket();
     this.state = {
       gamePlay: false,
       pending: false,
+      offline: !this.socket,
     }
-
-  socket.on('gameTimedOut', () => {
-    this.setState({gamePlay: false, pending: false})
-  })
-
-
   }
 
   endGame = () => {
@@ -33,13 +24,33 @@ class App extends Component {
     }, 5000)
   }
 
+  startOfflineDemo = () => {
+    this.setState({ gamePlay: true, pending: false, offline: true });
+  }
 
   componentDidMount() {
-    new Audio('harder.mp3').play()
+    if (this.socket) {
+      this.socket.on('startGame', () => {
+        this.setState({ gamePlay: true, offline: false });
+      });
+
+      this.socket.on('gameTimedOut', () => {
+        this.setState({ gamePlay: false, pending: false });
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.socket) {
+      this.socket.off('startGame');
+      this.socket.off('gameTimedOut');
+      this.socket.close();
+    }
   }
 
 
   render() {
+    const socketUrl = getSocketUrl();
 
     return (
       <div className="App">
@@ -47,8 +58,20 @@ class App extends Component {
         {this.state.pending
           ? <Waiting/>
           : this.state.gamePlay
-             ? <PongContainer socket={socket} endGame={this.endGame}  />
-             : <Pending/>
+             ? (
+                <PongContainer
+                  socket={this.socket}
+                  endGame={this.endGame}
+                  offline={this.state.offline}
+                />
+              )
+             : (
+                <Pending
+                  socketUrl={socketUrl}
+                  offline={!socketUrl}
+                  onStartOfflineDemo={this.startOfflineDemo}
+                />
+              )
          }
 
       </div>
